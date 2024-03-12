@@ -1,0 +1,22 @@
+{
+  "SFLIGHT": {
+    "target": {
+      "object": "SFLIGHT",
+      "schema": "SFLIGHT"
+    }
+  },
+  "SBOOK": {
+    "target": {
+      "object": "SBOOK",
+      "schema": "SFLIGHT",
+      "database": "HXE"
+    }
+  },
+  "SPFLI": {
+    "target": {
+      "object": "SPFLI",
+      "schema": "SFLIGHT",
+      "database": "HXE"
+    }
+  }
+}
