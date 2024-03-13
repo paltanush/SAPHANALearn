@@ -12,6 +12,13 @@
       "database": "HXE"
     }
   },
+  "RAJESH": {
+    "target": {
+      "object": "SMENU",
+      "schema": "SFLIGHT",
+      "database": "HXE"
+    }
+  },
   "SPFLI": {
     "target": {
       "object": "SPFLI",

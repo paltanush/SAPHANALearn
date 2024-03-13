@@ -12,16 +12,16 @@ modules:
       - name: SAPHANALearn-db-hdi-container
         properties:
           TARGET_CONTAINER: '~{hdi-container-name}'
-  
       - name: cross-container-service-1
         group: SERVICE_REPLACEMENTS
-
         properties:
           key: ServiceName_1
-          service: ~{the-service-name}
-                            
-
-
+          service: '~{the-service-name}'
+      - name: hdi_user_crosscontainer_db
+        group: SERVICE_REPLACEMENTS
+        properties:
+          key: hdi-user-service-2
+          service: '~{user-container-name-2}'
   - name: srv
     type: nodejs
     path: srv
@@ -39,6 +39,13 @@ modules:
     path: web
     requires:
       - name: SAPHANALearn_00_uaa
+  - name: user_crosscontainer_db
+    type: hdb
+    path: user_crosscontainer_db
+    requires:
+      - name: hdi_user_crosscontainer_db
+        properties:
+          TARGET_CONTAINER: '~{user-container-name-2}'
 resources:
   - name: SAPHANALearn-db-hdi-container
     type: com.sap.xs.hdi-container
@@ -48,11 +55,16 @@ resources:
     type: com.sap.xs.uaa-space
     parameters:
       path: /xs-security.json
-
   - name: cross-container-service-1
     parameters:
-       service-name: CROSS_SCHEMA_SFLIGHT_LEARNSAPHANA_00
+      service-name: CROSS_SCHEMA_SFLIGHT_LEARNSAPHANA_00
     properties:
-       the-service-name: ${service-name}
+      the-service-name: '${service-name}'
     type: org.cloudfoundry.existing-service
-
+  - name: hdi_user_crosscontainer_db
+    parameters:
+      config:
+        schema: SAP_HANA_Learn_USER_01
+    properties:
+      user-container-name-2: '${service-name}'
+    type: com.sap.xs.hdi-container
